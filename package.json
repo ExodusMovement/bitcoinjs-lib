@@ -1,5 +1,5 @@
 {
-  "name": "bitcoinjs-lib",
+  "name": "@exodus/bitcoinjs-lib-dogecoin",
   "version": "4.0.5",
   "description": "Client-side Bitcoin JavaScript library",
   "main": "./src/index.js",
