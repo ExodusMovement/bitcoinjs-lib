@@ -115,7 +115,7 @@ Transaction.fromBuffer = function (buffer, __noStrict) {
   const voutLen = readVarInt()
   for (i = 0; i < voutLen; ++i) {
     tx.outs.push({
-      value: readUInt64(),
+      valueBuffer: readSlice(8),
       script: readVarSlice()
     })
   }
@@ -176,13 +176,20 @@ Transaction.prototype.addInput = function (hash, index, sequence, scriptSig) {
 }
 
 Transaction.prototype.addOutput = function (scriptPubKey, value) {
-  typeforce(types.tuple(types.Buffer, types.Satoshi), arguments)
+  typeforce(types.tuple(types.Buffer, typeforce.anyOf(types.Satoshi, types.Buffer)), arguments)
 
   // Add the output and return the output's index
-  return (this.outs.push({
-    script: scriptPubKey,
-    value: value
-  }) - 1)
+  if (typeof value === 'number') {
+    return (this.outs.push({
+      script: scriptPubKey,
+      value: value
+    }) - 1)
+  } else {
+    return (this.outs.push({
+      script: scriptPubKey,
+      valueBuffer: value
+    }) - 1)
+  }
 }
 
 Transaction.prototype.hasWitnesses = function () {
@@ -234,9 +241,16 @@ Transaction.prototype.clone = function () {
   })
 
   newTx.outs = this.outs.map(function (txOut) {
-    return {
-      script: txOut.script,
-      value: txOut.value
+    if (txOut.valueBuffer) {
+      return {
+        script: txOut.script,
+        valueBuffer: txOut.valueBuffer
+      }
+    } else {
+      return {
+        script: txOut.script,
+        value: txOut.value
+      }
     }
   })
 
