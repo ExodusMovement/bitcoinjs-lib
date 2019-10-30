@@ -660,7 +660,7 @@ TransactionBuilder.prototype.sign = function (vin, keyPair, redeemScript, hashTy
   if (!canSign(input)) {
     if (witnessValue !== undefined) {
       if (input.value !== undefined && input.value !== witnessValue) throw new Error('Input didn\'t match witnessValue')
-      typeforce(typeforce.oneOf(types.Satoshi, types.Buffer), witnessValue)
+      typeforce(types.Satoshi, witnessValue)
       input.value = witnessValue
     }
 
