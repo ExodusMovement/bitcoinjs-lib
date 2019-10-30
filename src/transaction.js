@@ -176,7 +176,7 @@ Transaction.prototype.addInput = function (hash, index, sequence, scriptSig) {
 }
 
 Transaction.prototype.addOutput = function (scriptPubKey, value) {
-  typeforce(types.tuple(types.Buffer, typeforce.anyOf(types.Satoshi, types.Buffer)), arguments)
+  typeforce(types.tuple(types.Buffer, typeforce.oneOf(types.Satoshi, types.Buffer)), arguments)
 
   // Add the output and return the output's index
   if (typeof value === 'number') {
