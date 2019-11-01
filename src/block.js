@@ -99,7 +99,7 @@ Block.prototype.getUTCDate = function () {
 
 // TODO: buffer, offset compatibility
 Block.prototype.toBuffer = function (headersOnly) {
-  const buffer = Buffer.allocUnsafe(this.byteLength(headersOnly))
+  const buffer = Buffer.alloc(this.byteLength(headersOnly))
 
   let offset = 0
   function writeSlice (slice) {

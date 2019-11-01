@@ -45,7 +45,7 @@ function p2pkh (a, opts) {
   lazy.prop(o, 'address', function () {
     if (!o.hash) return
 
-    const payload = Buffer.allocUnsafe(21)
+    const payload = Buffer.alloc(21)
     payload.writeUInt8(network.pubKeyHash, 0)
     o.hash.copy(payload, 1)
     return bs58check.encode(payload)
