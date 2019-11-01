@@ -22,7 +22,7 @@ check.toJSON = function () { return 'Witness commitment output' }
 function encode (commitment) {
   typeforce(types.Hash256bit, commitment)
 
-  const buffer = Buffer.allocUnsafe(36)
+  const buffer = Buffer.alloc(36)
   HEADER.copy(buffer, 0)
   commitment.copy(buffer, 4)
 

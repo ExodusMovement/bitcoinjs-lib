@@ -53,7 +53,7 @@ function compile (chunks) {
     return accum + 1
   }, 0.0)
 
-  const buffer = Buffer.allocUnsafe(bufferSize)
+  const buffer = Buffer.alloc(bufferSize)
   let offset = 0
 
   chunks.forEach(function (chunk) {
@@ -164,7 +164,7 @@ function toStack (chunks) {
 
   return chunks.map(function (op) {
     if (Buffer.isBuffer(op)) return op
-    if (op === OPS.OP_0) return Buffer.allocUnsafe(0)
+    if (op === OPS.OP_0) return Buffer.alloc(0)
 
     return scriptNumber.encode(op - OP_INT_BASE)
   })

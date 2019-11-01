@@ -34,7 +34,7 @@ function fromBech32 (address) {
 function toBase58Check (hash, version) {
   typeforce(types.tuple(types.Hash160bit, types.UInt8), arguments)
 
-  const payload = Buffer.allocUnsafe(21)
+  const payload = Buffer.alloc(21)
   payload.writeUInt8(version, 0)
   hash.copy(payload, 1)
 

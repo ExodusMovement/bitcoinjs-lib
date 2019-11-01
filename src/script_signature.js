@@ -46,7 +46,7 @@ function encode (signature, hashType) {
   const hashTypeMod = hashType & ~0x80
   if (hashTypeMod <= 0 || hashTypeMod >= 4) throw new Error('Invalid hashType ' + hashType)
 
-  const hashTypeBuffer = Buffer.allocUnsafe(1)
+  const hashTypeBuffer = Buffer.alloc(1)
   hashTypeBuffer.writeUInt8(hashType, 0)
 
   const r = toDER(signature.slice(0, 32))

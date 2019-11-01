@@ -44,7 +44,7 @@ function scriptNumSize (i) {
 function encode (number) {
   let value = Math.abs(number)
   const size = scriptNumSize(value)
-  const buffer = Buffer.allocUnsafe(size)
+  const buffer = Buffer.alloc(size)
   const negative = number < 0
 
   for (var i = 0; i < size; ++i) {
